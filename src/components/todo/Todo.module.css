@@ -1,0 +1,43 @@
+.todo {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.blockBtn {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.button {
+  padding: 5px 10px;
+  color: azure;
+  border: none;
+  cursor: pointer;
+  transition: background-color 250ms, color 250ms;
+}
+
+.button:hover {
+  background-color: #e2e5e8;
+  color: inherit;
+}
+
+.button:active {
+  background-color: #e2e5e8;
+  color: inherit;
+}
+
+.btn-delete {
+  background-color: red;
+}
+
+.btn-edit {
+  background-color: green;
+}

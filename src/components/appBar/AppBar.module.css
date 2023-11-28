@@ -1,0 +1,11 @@
+.appBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 43px;
+  column-gap: 16px;
+  padding: 15px 30px;
+
+  font-size: 24px;
+  color: azure;
+}
