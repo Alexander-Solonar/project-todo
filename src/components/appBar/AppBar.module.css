@@ -18,19 +18,20 @@
   padding: 0;
 }
 
-.link,
-.active {
+.link {
   position: relative;
   white-space: nowrap;
   text-decoration: none;
   font-size: 18px;
+  color: #000;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.link {
-  color: #000;
+.link:hover {
+  color: azure;
 }
 
 .active {
   color: azure;
+  text-decoration: underline;
 }

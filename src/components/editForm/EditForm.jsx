@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import css from "./EditForm.module.css";
 
 const EditForm = ({ editedTodo, setEditedTodo, handleSaveEdit }) => {
@@ -9,7 +10,7 @@ const EditForm = ({ editedTodo, setEditedTodo, handleSaveEdit }) => {
           className={css["close-button"]}
           onClick={() => setEditedTodo(null)}
         >
-          X
+          Close
         </button>
         <p className={css.text}>Todo:</p>
         <input
@@ -30,6 +31,12 @@ const EditForm = ({ editedTodo, setEditedTodo, handleSaveEdit }) => {
       </div>
     </div>
   );
+};
+
+EditForm.propTypes = {
+  editedTodo: PropTypes.string.isRequired,
+  setEditedTodo: PropTypes.func.isRequired,
+  handleSaveEdit: PropTypes.func.isRequired,
 };
 
 export default EditForm;

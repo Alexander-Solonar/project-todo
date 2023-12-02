@@ -1,14 +1,15 @@
-import clsx from "clsx";
-import css from "./Todo.module.css";
 import { useDispatch } from "react-redux";
 import { deleteTodo, updateCompleted } from "../../redux/operations";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import css from "./Todo.module.css";
 
 const Todo = ({ item, handleEditClick }) => {
   const dispatch = useDispatch();
 
-  const handleToggle = (id, completed) => {
+  const handleToggle = (todoId, completed) => {
     const updateData = {
-      id,
+      todoId,
       data: {
         completed,
       },
@@ -46,6 +47,15 @@ const Todo = ({ item, handleEditClick }) => {
       </div>
     </>
   );
+};
+
+Todo.propTypes = {
+  handleEditClick: PropTypes.func.isRequired,
+  item: PropTypes.shape({
+    todo: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired,
+  }),
 };
 
 export default Todo;

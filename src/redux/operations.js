@@ -41,9 +41,9 @@ export const deleteTodo = createAsyncThunk(
 
 export const updateCompleted = createAsyncThunk(
   "todos/updateCompleted",
-  async ({ id, data }, thunkAPI) => {
+  async ({ todoId, data }, thunkAPI) => {
     try {
-      const response = await axios.put(`/todos/${id}`, data);
+      const response = await axios.put(`/todos/${todoId}`, data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -53,9 +53,10 @@ export const updateCompleted = createAsyncThunk(
 
 export const updateTodo = createAsyncThunk(
   "todos/updateTodo",
-  async ({ id, data }, thunkAPI) => {
+  async ({ todoId, data }, thunkAPI) => {
     try {
-      const response = await axios.put(`/todos/${id}`, data);
+      const response = await axios.put(`/todos/${todoId}`, data);
+
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

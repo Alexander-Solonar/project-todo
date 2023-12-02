@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import ReactPaginate from "react-paginate";
 import css from "./Pagination.module.css";
 
@@ -44,5 +45,11 @@ function Pagination({ setSkip, page, setSearchParams }) {
     </div>
   );
 }
+
+Pagination.propTypes = {
+  page: PropTypes.number.isRequired,
+  setSkip: PropTypes.func.isRequired,
+  setSearchParams: PropTypes.func.isRequired,
+};
 
 export default Pagination;

@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
 import css from "./AppBar.module.css";
 
 const AppBar = () => {
   const linkClassName = ({ isActive }) => {
-    const className = isActive ? css.active : css.link;
-    return className;
+    const active = isActive ? css.active : null;
+    return clsx(css.link, active);
   };
 
   return (
