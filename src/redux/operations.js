@@ -4,10 +4,10 @@ import axios from "axios";
 axios.defaults.baseURL = "https://dummyjson.com";
 
 export const fetchTodos = createAsyncThunk(
-  "contacts/fetchAll",
-  async (_, thunkAPI) => {
+  "todos/fetchAll",
+  async (skip, thunkAPI) => {
     try {
-      const response = await axios.get("/todos");
+      const response = await axios.get(`/todos?limit=10&skip=${skip}`);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -16,10 +16,10 @@ export const fetchTodos = createAsyncThunk(
 );
 
 export const addTodo = createAsyncThunk(
-  "contacts/addContact",
-  async (newContact, thunkAPI) => {
+  "todos/addTodo",
+  async (newTodo, thunkAPI) => {
     try {
-      const response = await axios.post("/contacts", newContact);
+      const response = await axios.post("/todos/add", newTodo);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -28,10 +28,34 @@ export const addTodo = createAsyncThunk(
 );
 
 export const deleteTodo = createAsyncThunk(
-  "contacts/deleteContact",
-  async (contactId, thunkAPI) => {
+  "todos/deleteTodo",
+  async (todoId, thunkAPI) => {
     try {
-      const response = await axios.delete(`/contacts/${contactId}`);
+      const response = await axios.delete(`/todos/${todoId}`);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const updateCompleted = createAsyncThunk(
+  "todos/updateCompleted",
+  async ({ id, data }, thunkAPI) => {
+    try {
+      const response = await axios.put(`/todos/${id}`, data);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const updateTodo = createAsyncThunk(
+  "todos/updateTodo",
+  async ({ id, data }, thunkAPI) => {
+    try {
+      const response = await axios.put(`/todos/${id}`, data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

@@ -1,12 +1,9 @@
-import TodoForm from "../../components/todoForm";
-import TodosList from "../../components/todosList/TodosList";
 import css from "./Home.module.css";
 
 const Home = () => {
   return (
-    <div>
-      <TodoForm />
-      <TodosList />
+    <div className={css["wrapper"]}>
+      <h1>Hello World!</h1>
     </div>
   );
 };

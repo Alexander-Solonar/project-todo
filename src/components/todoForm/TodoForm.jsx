@@ -1,15 +1,39 @@
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import css from "./TodoForm.module.css";
-// import { addTask } from "redux/operations";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo } from "../../redux/operations";
 
 const TaskForm = () => {
+  const [nameTodo, setNameTodo] = useState("");
+  const { todos } = useSelector((state) => state.todos.items);
   const dispatch = useDispatch();
 
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    setNameTodo(value);
+  };
+
   const handleSubmit = (event) => {
-    //   event.preventDefault();
-    //   const form = event.target;
-    //   dispatch(addTask(event.target.elements.text.value));
-    //   form.reset();
+    event.preventDefault();
+    const newTodo = {
+      userId: 5,
+      completed: false,
+      todo: nameTodo,
+    };
+
+    const normalizedTodo = newTodo.todo.toLowerCase();
+
+    const isTodos = todos.some(
+      ({ todo }) => todo.toLowerCase() === normalizedTodo
+    );
+
+    if (isTodos) {
+      alert(`${newTodo.todo} is already in todo.`);
+      return;
+    }
+    const createdTodo = dispatch(addTodo(newTodo));
+    alert(`added new todo: ${JSON.stringify(createdTodo.arg)}`);
+    setNameTodo("");
   };
 
   return (
@@ -19,9 +43,11 @@ const TaskForm = () => {
         type="text"
         name="text"
         placeholder="Enter todo text..."
+        value={nameTodo}
+        onChange={handleInputChange}
       />
       <button className={css.button} type="submit">
-        Add task
+        Add todo
       </button>
     </form>
   );

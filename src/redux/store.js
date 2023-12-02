@@ -1,10 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { todosReduser } from "./todoSlice";
-import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
-
+import { todosReducer } from "./todoSlice";
 import {
-  persistStore,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -13,14 +9,9 @@ import {
   REGISTER,
 } from "redux-persist";
 
-const authPersistConfig = {
-  key: "todo",
-  storage,
-};
-
 export const store = configureStore({
   reducer: {
-    todos: persistReducer(authPersistConfig, todosReduser),
+    todos: todosReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -29,5 +20,3 @@ export const store = configureStore({
       },
     }),
 });
-
-export const persistor = persistStore(store);

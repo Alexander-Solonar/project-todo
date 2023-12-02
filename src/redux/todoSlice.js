@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addTodo, deleteTodo, fetchTodos } from "./operations";
+import {
+  addTodo,
+  deleteTodo,
+  fetchTodos,
+  updateCompleted,
+  updateTodo,
+} from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -18,14 +24,35 @@ const handleFulfilledFetch = (state, action) => {
 const handleFulfilledAdd = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.items.push(action.payload);
+  state.items.todos.unshift(action.payload);
 };
 
 const handleFulfilledDelete = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  const index = state.items.findIndex((todo) => todo.id === action.payload.id);
-  state.items.splice(index, 1);
+  const index = state.items.todos.findIndex(
+    (todo) => todo.id === action.payload.id
+  );
+  state.items.todos.splice(index, 1);
+};
+
+const handleFulfilledUpdateCompleted = (state, action) => {
+  state.isLoading = false;
+  state.error = null;
+  const index = state.items.todos.findIndex(
+    (todo) => todo.id === action.payload.id
+  );
+  state.items.todos[index].completed = action.payload.completed;
+};
+
+const handleFulfilledUpdateTodo = (state, action) => {
+  state.isLoading = false;
+  state.error = null;
+  const index = state.items.todos.findIndex(
+    (todo) => todo.id === action.payload.id
+  );
+
+  state.items.todos[index].todo = action.payload.todo;
 };
 
 const todosSlice = createSlice({
@@ -45,8 +72,14 @@ const todosSlice = createSlice({
       .addCase(addTodo.rejected, handleRejected)
       .addCase(deleteTodo.pending, handlePending)
       .addCase(deleteTodo.fulfilled, handleFulfilledDelete)
-      .addCase(deleteTodo.rejected, handleRejected);
+      .addCase(deleteTodo.rejected, handleRejected)
+      .addCase(updateCompleted.pending, handlePending)
+      .addCase(updateCompleted.fulfilled, handleFulfilledUpdateCompleted)
+      .addCase(updateCompleted.rejected, handleRejected)
+      .addCase(updateTodo.pending, handlePending)
+      .addCase(updateTodo.fulfilled, handleFulfilledUpdateTodo)
+      .addCase(updateTodo.rejected, handleRejected);
   },
 });
 
-export const todosReduser = todosSlice.reducer;
+export const todosReducer = todosSlice.reducer;

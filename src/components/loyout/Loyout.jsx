@@ -6,11 +6,11 @@ import css from "./Layout.module.css";
 const Layout = () => {
   return (
     <div className={css.wrapper}>
-      <div className={css.header}>
+      <header className={css.header}>
         <div className={css.container}>
           <AppBar />
         </div>
-      </div>
+      </header>
       <main className={css.main}>
         <div className={css.container}>
           <Suspense>
@@ -18,6 +18,11 @@ const Layout = () => {
           </Suspense>
         </div>
       </main>
+      <div className={css.footer}>
+        <div className={css.container}>
+          <p> &#169; 2023, Todos</p>
+        </div>
+      </div>
     </div>
   );
 };

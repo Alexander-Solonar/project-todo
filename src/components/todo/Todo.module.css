@@ -10,6 +10,10 @@
   cursor: pointer;
 }
 
+.text {
+  margin: 0;
+}
+
 .blockBtn {
   display: flex;
   flex-direction: column;

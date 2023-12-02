@@ -1,0 +1,66 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.edit-form-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 60%;
+  padding: 50px 20px 20px;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 2px 8px;
+  cursor: pointer;
+  color: black;
+  border: none;
+  background-color: rgb(234, 238, 238);
+}
+
+.close-button:hover {
+  color: white;
+  background-color: red;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.input:focus {
+  outline-color: #1976d2;
+}
+
+.container-save-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-button {
+  padding: 6px 20px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: green;
+}
+
+.save-button:hover {
+  background-color: #e2e5e8;
+  color: inherit;
+}
