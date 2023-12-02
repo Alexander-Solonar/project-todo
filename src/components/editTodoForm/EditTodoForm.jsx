@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import css from "./EditForm.module.css";
+import css from "./EditTodoForm.module.css";
 
-const EditForm = ({ editedTodo, setEditedTodo, handleSaveEdit }) => {
+const EditTodoForm = ({ editedTodo, setEditedTodo, handleSaveEdit }) => {
   return (
     <div className={css.backdrop}>
       <div className={css["edit-form-container"]}>
@@ -33,10 +33,10 @@ const EditForm = ({ editedTodo, setEditedTodo, handleSaveEdit }) => {
   );
 };
 
-EditForm.propTypes = {
+EditTodoForm.propTypes = {
   editedTodo: PropTypes.string.isRequired,
   setEditedTodo: PropTypes.func.isRequired,
   handleSaveEdit: PropTypes.func.isRequired,
 };
 
-export default EditForm;
+export default EditTodoForm;

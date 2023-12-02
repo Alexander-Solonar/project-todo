@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import TodoForm from "../../components/todoForm";
+import AddTodoForm from "../../components/addTodoForm";
 import TodosList from "../../components/todosList";
 import Pagination from "../../components/pagination";
 import css from "./Todos.module.css";
@@ -16,7 +16,7 @@ const Todos = () => {
 
   return (
     <div className={css["wrapper"]}>
-      <TodoForm />
+      <AddTodoForm />
       <TodosList skip={skip} />
       {total && (
         <div className={css["container-pagination"]}>

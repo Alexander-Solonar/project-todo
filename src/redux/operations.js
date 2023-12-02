@@ -15,6 +15,8 @@ export const fetchTodos = createAsyncThunk(
   }
 );
 
+// Adding a new todo will not add it into the server.
+//  It will simulate a POST request and will return the new created todo with a new id
 export const addTodo = createAsyncThunk(
   "todos/addTodo",
   async (newTodo, thunkAPI) => {
@@ -27,6 +29,8 @@ export const addTodo = createAsyncThunk(
   }
 );
 
+// Deleting a todo will not delete it into the server.
+// It will simulate a DELETE request and will return deleted todo with "isDeleted" & "deletedOn" keys
 export const deleteTodo = createAsyncThunk(
   "todos/deleteTodo",
   async (todoId, thunkAPI) => {
@@ -39,6 +43,8 @@ export const deleteTodo = createAsyncThunk(
   }
 );
 
+// Updating a todo will not update it into the server.
+//  It will simulate a PUT/PATCH request and will return the todo with modified data
 export const updateCompleted = createAsyncThunk(
   "todos/updateCompleted",
   async ({ todoId, data }, thunkAPI) => {
@@ -51,6 +57,8 @@ export const updateCompleted = createAsyncThunk(
   }
 );
 
+// Updating a todo will not update it into the server.
+//  It will simulate a PUT/PATCH request and will return the todo with modified data
 export const updateTodo = createAsyncThunk(
   "todos/updateTodo",
   async ({ todoId, data }, thunkAPI) => {

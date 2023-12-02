@@ -4,12 +4,11 @@ import { fetchTodos, updateTodo } from "../../redux/operations";
 import PropTypes from "prop-types";
 import Loader from "../loader";
 import Todo from "../todo";
-import EditForm from "../editForm";
+import EditTodoForm from "../editTodoForm";
 import css from "./TodoList.module.css";
 
 const TodosList = ({ skip }) => {
-  const { todos } = useSelector((state) => state.todos.items);
-  const { isLoading } = useSelector((state) => state.todos);
+  const { items, isLoading } = useSelector((state) => state.todos);
   const [todoId, setTodoId] = useState(null);
   const [editedTodo, setEditedTodo] = useState(null);
   const dispatch = useDispatch();
@@ -39,14 +38,14 @@ const TodosList = ({ skip }) => {
     <div className={css.wrapper}>
       {isLoading && <Loader />}
       <ul className={css.list}>
-        {todos?.map((todo) => (
+        {items.todos?.map((todo) => (
           <li key={todo.id} className={css.item}>
             <Todo item={todo} handleEditClick={handleEditClick} />
           </li>
         ))}
       </ul>
       {editedTodo && (
-        <EditForm
+        <EditTodoForm
           editedTodo={editedTodo}
           setEditedTodo={setEditedTodo}
           handleSaveEdit={handleSaveEdit}

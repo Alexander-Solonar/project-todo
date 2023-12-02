@@ -1,9 +1,9 @@
 import { useState } from "react";
-import css from "./TodoForm.module.css";
+import css from "./AddTodoForm.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo } from "../../redux/operations";
 
-const TaskForm = () => {
+const AddTodoForm = () => {
   const [nameTodo, setNameTodo] = useState("");
   const { todos } = useSelector((state) => state.todos.items);
   const dispatch = useDispatch();
@@ -15,6 +15,8 @@ const TaskForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!nameTodo.trim()) return;
+
     const newTodo = {
       userId: 5,
       completed: false,
@@ -53,4 +55,4 @@ const TaskForm = () => {
   );
 };
 
-export default TaskForm;
+export default AddTodoForm;
