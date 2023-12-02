@@ -48,6 +48,7 @@ Make sure you have the following installed:
 ## Usage
 
 **To start the application, run:**
+
 npm start
 
 ## Contributing
