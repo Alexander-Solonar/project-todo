@@ -6,11 +6,13 @@ import Loader from "../loader";
 import Todo from "../todo";
 import EditTodoForm from "../editTodoForm";
 import css from "./TodoList.module.css";
+import Notiflix from "notiflix";
 
 const TodosList = ({ skip }) => {
   const { items, isLoading } = useSelector((state) => state.todos);
   const [todoId, setTodoId] = useState(null);
   const [editedTodo, setEditedTodo] = useState(null);
+  const [isOpenForm, setIsOpenForm] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,16 +24,19 @@ const TodosList = ({ skip }) => {
   const handleEditClick = (id, newText) => {
     setTodoId(id);
     setEditedTodo(newText);
+    setIsOpenForm(true);
   };
 
   const handleSaveEdit = () => {
+    if (!editedTodo.trim()) return;
     const updateData = {
       todoId,
       data: { todo: editedTodo },
     };
 
-    dispatch(updateTodo(updateData));
-    setEditedTodo(null);
+    const response = dispatch(updateTodo(updateData));
+    Notiflix.Notify.success(`Updated todo: ${JSON.stringify(response.arg)}`);
+    setIsOpenForm(false);
   };
 
   return (
@@ -44,11 +49,12 @@ const TodosList = ({ skip }) => {
           </li>
         ))}
       </ul>
-      {editedTodo && (
+      {isOpenForm && (
         <EditTodoForm
           editedTodo={editedTodo}
           setEditedTodo={setEditedTodo}
           handleSaveEdit={handleSaveEdit}
+          setIsOpenForm={setIsOpenForm}
         />
       )}
     </div>

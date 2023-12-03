@@ -1,7 +1,8 @@
 import { useState } from "react";
-import css from "./AddTodoForm.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo } from "../../redux/operations";
+import css from "./AddTodoForm.module.css";
+import Notiflix from "notiflix";
 
 const AddTodoForm = () => {
   const [nameTodo, setNameTodo] = useState("");
@@ -30,11 +31,12 @@ const AddTodoForm = () => {
     );
 
     if (isTodos) {
-      alert(`${newTodo.todo} is already in todo.`);
+      Notiflix.Notify.warning(`${newTodo.todo} is already in todo.`);
       return;
     }
-    const createdTodo = dispatch(addTodo(newTodo));
-    alert(`added new todo: ${JSON.stringify(createdTodo.arg)}`);
+    const response = dispatch(addTodo(newTodo));
+    Notiflix.Notify.success(`Added new todo: ${JSON.stringify(response.arg)}`);
+
     setNameTodo("");
   };
 

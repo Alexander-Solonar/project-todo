@@ -7,3 +7,11 @@
   max-width: 800px;
   height: 100%;
 }
+
+.title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 66px;
+  text-decoration: underline;
+}
