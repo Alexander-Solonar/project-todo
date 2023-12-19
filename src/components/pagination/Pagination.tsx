@@ -1,21 +1,28 @@
+import { FC } from "react";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import { RootState } from "../../redux/store";
 import ReactPaginate from "react-paginate";
 import css from "./Pagination.module.css";
 
 const ITEMS_PER_PAGE = 10;
 
-function Pagination({ setSkip, page, setSearchParams }) {
-  const { total } = useSelector((state) => state.todos.items);
+interface PaginationProps {
+  setSkip: (skip: number) => void;
+  page: number;
+  setParams: (params: { page: any }) => void; // тут any по тому что  setParams ожидает string | string[]
+}
+
+const Pagination: FC<PaginationProps> = ({ setSkip, page, setParams }) => {
+  const total = useSelector((state: RootState) => state.total);
   const pageCount = Math.ceil(total / ITEMS_PER_PAGE);
 
-  const handlePageClick = (value) => {
+  const handlePageClick = (value: { selected: number }) => {
     setSkip(value.selected * ITEMS_PER_PAGE);
   };
 
-  const handlePage = (value) => {
-    if (value.nextSelectedPage >= 0) {
-      setSearchParams({ page: value.nextSelectedPage + 1 });
+  const handlePage = (value: { selected: number }) => {
+    if (value.selected >= 0) {
+      setParams({ page: value.selected + 1 });
     }
   };
 
@@ -25,7 +32,7 @@ function Pagination({ setSkip, page, setSearchParams }) {
         breakLabel="..."
         nextLabel=">"
         previousLabel="< "
-        initialPage={page - 1}
+        initialPage={Math.max(page - 1, 0)}
         onPageChange={handlePageClick}
         onClick={handlePage}
         pageRangeDisplayed={3}
@@ -44,12 +51,6 @@ function Pagination({ setSkip, page, setSearchParams }) {
       />
     </div>
   );
-}
-
-Pagination.propTypes = {
-  page: PropTypes.number.isRequired,
-  setSkip: PropTypes.func.isRequired,
-  setSearchParams: PropTypes.func.isRequired,
 };
 
 export default Pagination;

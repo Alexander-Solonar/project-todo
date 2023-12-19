@@ -1,27 +1,30 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTodos, updateTodo } from "../../redux/operations";
-import PropTypes from "prop-types";
+import { AppDispatch, RootState } from "../../redux/store";
 import Loader from "../loader";
 import Todo from "../todo";
 import EditTodoForm from "../editTodoForm";
 import css from "./TodoList.module.css";
-import Notiflix from "notiflix";
 
-const TodosList = ({ skip }) => {
-  const { items, isLoading } = useSelector((state) => state.todos);
-  const [todoId, setTodoId] = useState(null);
-  const [editedTodo, setEditedTodo] = useState(null);
-  const [isOpenForm, setIsOpenForm] = useState(false);
-  const dispatch = useDispatch();
+interface TodosListProps {
+  skip: number;
+}
 
+const TodosList: FC<TodosListProps> = ({ skip }) => {
+  const todos = useSelector((state: RootState) => state.todos);
+  const isLoading = useSelector((state: RootState) => state.isLoading);
+  const [todoId, setTodoId] = useState<null | number>(null);
+  const [editedTodo, setEditedTodo] = useState<string>("");
+  const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     window.scrollTo(0, 0);
 
     dispatch(fetchTodos(skip));
   }, [dispatch, skip]);
 
-  const handleEditClick = (id, newText) => {
+  const handleEditClick = (id: number, newText: string): void => {
     setTodoId(id);
     setEditedTodo(newText);
     setIsOpenForm(true);
@@ -34,8 +37,7 @@ const TodosList = ({ skip }) => {
       data: { todo: editedTodo },
     };
 
-    const response = dispatch(updateTodo(updateData));
-    Notiflix.Notify.success(`Updated todo: ${JSON.stringify(response.arg)}`);
+    dispatch(updateTodo(updateData));
     setIsOpenForm(false);
   };
 
@@ -43,7 +45,7 @@ const TodosList = ({ skip }) => {
     <div className={css.wrapper}>
       {isLoading && <Loader />}
       <ul className={css.list}>
-        {items.todos?.map((todo) => (
+        {todos?.map((todo) => (
           <li key={todo.id} className={css.item}>
             <Todo item={todo} handleEditClick={handleEditClick} />
           </li>
@@ -59,10 +61,6 @@ const TodosList = ({ skip }) => {
       )}
     </div>
   );
-};
-
-TodosList.propTypes = {
-  skip: PropTypes.number.isRequired,
 };
 
 export default TodosList;

@@ -1,7 +1,14 @@
-import PropTypes from "prop-types";
+import { ChangeEvent, FC } from "react";
 import css from "./EditTodoForm.module.css";
 
-const EditTodoForm = ({
+interface EditTodoFormProps {
+  editedTodo: string;
+  setEditedTodo: (value: string) => void;
+  handleSaveEdit: () => void;
+  setIsOpenForm: (value: boolean) => void;
+}
+
+const EditTodoForm: FC<EditTodoFormProps> = ({
   editedTodo,
   setEditedTodo,
   handleSaveEdit,
@@ -22,7 +29,9 @@ const EditTodoForm = ({
           className={css.input}
           type="text"
           value={editedTodo}
-          onChange={(e) => setEditedTodo(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setEditedTodo(e.target.value)
+          }
         />
         <div className={css["container-save-button"]}>
           <button
@@ -36,13 +45,6 @@ const EditTodoForm = ({
       </div>
     </div>
   );
-};
-
-EditTodoForm.propTypes = {
-  editedTodo: PropTypes.string.isRequired,
-  setEditedTodo: PropTypes.func.isRequired,
-  handleSaveEdit: PropTypes.func.isRequired,
-  setIsOpenForm: PropTypes.func.isRequired,
 };
 
 export default EditTodoForm;

@@ -1,13 +1,23 @@
+import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTodo, updateCompleted } from "../../redux/operations";
-import PropTypes from "prop-types";
+import { AppDispatch } from "../../redux/store";
 import clsx from "clsx";
 import css from "./Todo.module.css";
 
-const Todo = ({ item, handleEditClick }) => {
-  const dispatch = useDispatch();
+interface TodoProps {
+  item: {
+    id: number;
+    completed: boolean;
+    todo: string;
+  };
+  handleEditClick: (id: number, newText: string) => void;
+}
 
-  const handleToggle = (todoId, completed) => {
+const Todo: FC<TodoProps> = ({ item, handleEditClick }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleToggle = (todoId: number, completed: boolean) => {
     const updateData = {
       todoId,
       data: {
@@ -47,15 +57,6 @@ const Todo = ({ item, handleEditClick }) => {
       </div>
     </>
   );
-};
-
-Todo.propTypes = {
-  handleEditClick: PropTypes.func.isRequired,
-  item: PropTypes.shape({
-    todo: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired,
-    id: PropTypes.number.isRequired,
-  }),
 };
 
 export default Todo;

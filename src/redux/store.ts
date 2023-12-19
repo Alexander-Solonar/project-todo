@@ -10,9 +10,8 @@ import {
 } from "redux-persist";
 
 export const store = configureStore({
-  reducer: {
-    todos: todosReducer,
-  },
+  reducer: todosReducer,
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -20,3 +19,6 @@ export const store = configureStore({
       },
     }),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

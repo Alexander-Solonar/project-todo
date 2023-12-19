@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo } from "../../redux/operations";
+import { AppDispatch, RootState } from "../../redux/store";
 import css from "./AddTodoForm.module.css";
 import Notiflix from "notiflix";
 
 const AddTodoForm = () => {
-  const [nameTodo, setNameTodo] = useState("");
-  const { todos } = useSelector((state) => state.todos.items);
-  const dispatch = useDispatch();
+  const [nameTodo, setNameTodo] = useState<string>("");
+  const todos = useSelector((state: RootState) => state.todos);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setNameTodo(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (!nameTodo.trim()) return;
 
@@ -34,9 +35,7 @@ const AddTodoForm = () => {
       Notiflix.Notify.warning(`${newTodo.todo} is already in todo.`);
       return;
     }
-    const response = dispatch(addTodo(newTodo));
-    Notiflix.Notify.success(`Added new todo: ${JSON.stringify(response.arg)}`);
-
+    dispatch(addTodo(newTodo));
     setNameTodo("");
   };
 

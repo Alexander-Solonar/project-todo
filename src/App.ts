@@ -1,9 +1,10 @@
+import { ReactNode } from "react";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/loyout/Loyout";
 import Home from "./pages/home/Home";
 import Todos from "./pages/todos/Todos";
+import Layout from "./components/loyout/Loyout";
 
-function App() {
+const App = (): ReactNode => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -12,6 +13,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

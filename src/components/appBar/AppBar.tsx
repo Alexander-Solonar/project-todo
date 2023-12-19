@@ -3,8 +3,8 @@ import clsx from "clsx";
 import css from "./AppBar.module.css";
 
 const AppBar = () => {
-  const linkClassName = ({ isActive }) => {
-    const active = isActive ? css.active : null;
+  const linkClassName = (link: { isActive: boolean }) => {
+    const active = link.isActive ? css.active : null;
     return clsx(css.link, active);
   };
 

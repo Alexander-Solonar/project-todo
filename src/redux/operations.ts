@@ -3,70 +3,80 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://dummyjson.com";
 
+interface Todo {
+  userId: number;
+  todo: string;
+  completed: boolean;
+}
+
+interface UpdateData {
+  todoId: number;
+  data: {
+    completed: boolean;
+  };
+}
+
+interface UpdateTodo {
+  todoId: number | null;
+  data: { todo: string };
+}
+
 export const fetchTodos = createAsyncThunk(
   "todos/fetchAll",
-  async (skip, thunkAPI) => {
+  async (skip: number, thunkAPI) => {
     try {
       const response = await axios.get(`/todos?limit=10&skip=${skip}`);
       return response.data;
-    } catch (e) {
+    } catch (e: any) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-// Adding a new todo will not add it into the server.
-//  It will simulate a POST request and will return the new created todo with a new id
 export const addTodo = createAsyncThunk(
   "todos/addTodo",
-  async (newTodo, thunkAPI) => {
+  async (newTodo: Todo, thunkAPI) => {
     try {
       const response = await axios.post("/todos/add", newTodo);
       return response.data;
-    } catch (e) {
+    } catch (e: any) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-// Deleting a todo will not delete it into the server.
-// It will simulate a DELETE request and will return deleted todo with "isDeleted" & "deletedOn" keys
 export const deleteTodo = createAsyncThunk(
   "todos/deleteTodo",
-  async (todoId, thunkAPI) => {
+  async (todoId: number, thunkAPI) => {
     try {
       const response = await axios.delete(`/todos/${todoId}`);
-      return response.data;
-    } catch (e) {
+      return response.data.id;
+    } catch (e: any) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-// Updating a todo will not update it into the server.
-//  It will simulate a PUT/PATCH request and will return the todo with modified data
 export const updateCompleted = createAsyncThunk(
   "todos/updateCompleted",
-  async ({ todoId, data }, thunkAPI) => {
+  async ({ todoId, data }: UpdateData, thunkAPI) => {
     try {
       const response = await axios.put(`/todos/${todoId}`, data);
-      return response.data;
-    } catch (e) {
+      return response.data.id;
+    } catch (e: any) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-// Updating a todo will not update it into the server.
-//  It will simulate a PUT/PATCH request and will return the todo with modified data
 export const updateTodo = createAsyncThunk(
   "todos/updateTodo",
-  async ({ todoId, data }, thunkAPI) => {
+  async ({ todoId, data }: UpdateTodo, thunkAPI) => {
     try {
       const response = await axios.put(`/todos/${todoId}`, data);
 
       return response.data;
-    } catch (e) {
+    } catch (e: any) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
